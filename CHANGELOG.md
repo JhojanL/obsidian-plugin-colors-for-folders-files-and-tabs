@@ -23,4 +23,4 @@ See [accessibility](docs/ACCESSIBILITY.md) and [testing](docs/TESTING.md) for li
 Subsequent release PRs use Release Please with Conventional Commits. Merging a
 release PR triggers automatic tagging and publication after checks pass. The initial
 release needs a separately authorized version-tag push; see
-[release preparation](docs/DEVELOPMENT.md#release-preparation).
+[release preparation](docs/RELEASE.md).

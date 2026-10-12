@@ -65,7 +65,8 @@ vulnerabilities privately using [SECURITY.md](SECURITY.md).
 
 ## Development and contribution
 
-[Development](docs/DEVELOPMENT.md) covers setup, deployment and release preparation.
+[Development](docs/DEVELOPMENT.md) covers setup and deployment.
+[Releases](docs/RELEASE.md) covers GitHub configuration, publication and submission.
 Use mise with Node **24.21.0**, pnpm **12.8.1** and the committed TypeScript **6.0.3**
 pin. The full local check is:
 

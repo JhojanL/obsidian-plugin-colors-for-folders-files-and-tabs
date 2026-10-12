@@ -47,7 +47,7 @@ Use Conventional Commit titles for squash merges: `fix: ...`, `feat: ...`,
 `docs: ...`, `test: ...` or `chore: ...`. Mark an incompatible change with `!` and
 explain it in the body. Release Please uses these titles for release PRs; review
 the proposed version and changelog before merging. See
-[release preparation](docs/DEVELOPMENT.md#release-preparation).
+[release preparation](docs/RELEASE.md).
 
 Maintainer review decides scope and acceptance. Merging a release PR triggers
 automatic tagging and publication after checks pass. Repository creation, initial
