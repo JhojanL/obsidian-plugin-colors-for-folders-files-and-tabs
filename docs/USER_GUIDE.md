@@ -7,10 +7,12 @@ or changes note contents.
 
 ## Installation
 
-Use desktop Obsidian **1.14.4 or later**. Community-directory installation is not
-available for this unreleased MVP.
+Use desktop Obsidian **1.14.4 or later**. The plugin is not yet listed in the
+community directory; install it manually.
 
-1. Follow [development setup](DEVELOPMENT.md#setup), then run
+1. For a published version, download `main.js`, `manifest.json` and `styles.css`
+   from the same [GitHub release](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/releases).
+   Alternatively, follow [development setup](DEVELOPMENT.md#setup), then run
    `mise exec -- pnpm run build` in the checkout.
 2. Create `<vault>/.obsidian/plugins/colors-for-folders-files-and-tabs/`, replacing
    `.obsidian` if the vault uses a different configuration directory.

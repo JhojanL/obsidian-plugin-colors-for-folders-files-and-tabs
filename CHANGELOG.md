@@ -1,9 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.1.0 (2026-10-12)
 
-Initial desktop MVP, prepared as version **0.1.0** for Obsidian **1.14.4 or later**.
-No release date or tag has been assigned.
+Initial desktop MVP for Obsidian **1.14.4 or later**.
 
 - Named/custom palette, folder assignments and nearest-ancestor inheritance.
 - File-type icons, descendant color variations and independent Explorer
@@ -21,5 +20,7 @@ Windows verification is scoped to the recorded workflows. Linux/macOS and other
 current-build themes remain untested; mobile and automated E2E are deferred.
 See [accessibility](docs/ACCESSIBILITY.md) and [testing](docs/TESTING.md) for limits.
 
-Subsequent release PRs use Release Please with Conventional Commits. Tagging and
-publication remain maintainer actions; see [release preparation](docs/DEVELOPMENT.md#release-preparation).
+Subsequent release PRs use Release Please with Conventional Commits. Merging a
+release PR triggers automatic tagging and publication after checks pass. The initial
+release needs a separately authorized version-tag push; see
+[release preparation](docs/DEVELOPMENT.md#release-preparation).

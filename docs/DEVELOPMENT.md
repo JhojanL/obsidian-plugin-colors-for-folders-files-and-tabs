@@ -95,32 +95,84 @@ Review generated versions, dates, compatibility mappings and changelog text.
 
 ### Bootstrap fresh history
 
-1. Merge the accepted cleanup into the current repository's `master` branch, then
-   download that branch's source ZIP. Create the empty destination repository
-   `obsidian-plugin-colors-for-folders-files-and-tabs` without generated starter files.
-   Extract the source, including dotfiles such as `.github`, and retain LICENSE/NOTICE.
-   Update destination URLs before making one initial commit on `main`, which matches
-   the workflows. Keep generated files and private configuration excluded. Repository
-   creation and the initial commit are maintainer actions; do not copy old Git history.
-2. Keep `RELEASE_PLEASE_ENABLED` unset while preparing the initial **0.1.0** release.
-   Retain the reviewed **Unreleased** summary until that release is authorized;
-   then give it the actual version/date. Do not copy old commit or tag references.
-3. After the initial release, add `bootstrap-sha` to `release-please-config.json`
-   using the full SHA of its release commit **in the new repository**. The checked-in
-   Release Please manifest starts at `0.1.0`; it is a version baseline, not evidence
-   of a published release. Bootstrap excludes the initial MVP from later changelogs.
-4. Complete destination setup below, then enable `RELEASE_PLEASE_ENABLED=true`.
-   Remove `bootstrap-sha` after the first generated release PR has been merged.
+The destination repository is now
+`JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs`, with fresh history on
+`main`. Repository creation and the initial commit are complete. Continue with
+normal commits and PRs; do not recreate the repository or rewrite its history.
 
-This uses the new repository's history. No old SHA, tag or release is required.
-The release workflow creates version tags for subsequent releases; finish one
-release before merging another release PR.
-See its [bootstrap documentation](https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md#bootstrapping).
+Bootstrap tells Release Please where the first published version ends. Two files
+record different parts of that baseline:
+
+- `.release-please-manifest.json` already records version `0.1.0`. This alone does
+  not publish a release.
+- The top-level `bootstrap-sha` in `release-please-config.json` will identify the
+  commit published as `0.1.0`. Release Please excludes that commit and earlier
+  history from its first generated changelog entry. Use the released commit,
+  which may differ from the repository's initial commit.
+
+Follow this sequence once:
+
+1. Do not create `RELEASE_PLEASE_ENABLED` yet. If it already exists under
+   **Settings → Secrets and variables → Actions → Variables**, set it to `false`
+   or delete it. The **Prepare release PR** job runs only when its value is
+   exactly `true`; a missing variable keeps that job disabled. Keep
+   `RELEASE_PLEASE_TOKEN` under **Secrets**. The initial tag-triggered **Release**
+   workflow runs independently of this variable.
+   Complete the [repository setup](#destination-repository-setup) below. Use PRs
+   with a passing `build` check for preparation changes, as required by the
+   configured `main` ruleset.
+2. Keep the reviewed **Unreleased** summary until the initial release is
+   authorized. Then change its heading to `0.1.0` with the actual release date,
+   remove the sentence saying no date/tag has been assigned, and review the
+   README/security policy's unreleased wording. Merge the preparation PR after
+   checks pass. Keep all version files at `0.1.0`.
+3. After explicit initial-release authorization, tag the reviewed commit on
+   `main` as `0.1.0` and push that tag. This starts the **Release** workflow,
+   which runs full checks and publishes automatically. A tag push is the
+   publication action; no release PR is needed for this first release.
+
+   ```bash
+   git fetch origin main
+   # Replace REVIEWED_COMMIT_SHA with the full SHA of the approved commit on main.
+   git tag 0.1.0 REVIEWED_COMMIT_SHA
+   git push origin refs/tags/0.1.0
+   ```
+
+4. Wait for the **Release** workflow to succeed. Verify the published `0.1.0`
+   release, its notes and its three assets: `main.js`, `manifest.json` and
+   `styles.css`. Do not enable release PRs while this publication is incomplete.
+5. Read the full released commit SHA:
+
+   ```bash
+   git fetch origin tag 0.1.0
+   git rev-parse '0.1.0^{commit}'
+   ```
+
+   In a separate `chore: configure release bootstrap` PR, add
+   `"bootstrap-sha": "FULL_SHA_FROM_THE_COMMAND"` at the top level of
+   `release-please-config.json`, alongside `"release-type"`. Preserve its other
+   keys and `.release-please-manifest.json`. Use the actual 40-character SHA,
+   not the tag name, a short SHA or this placeholder. Merge after `build` passes.
+
+6. Under **Settings → Secrets and variables → Actions → Variables**, create or
+   update the repository variable `RELEASE_PLEASE_ENABLED` with value `true`.
+   This is a separate setting from the `RELEASE_PLEASE_TOKEN` secret. Variables do
+   not themselves trigger this workflow; either run **Actions → Prepare release
+   PR → Run workflow** on `main`, or let the next push to `main` trigger it.
+   With only bootstrap/docs changes since `0.1.0`, no release PR is expected.
+   Later `fix:` or `feat:` commits normally produce one.
+7. After the first generated release PR has been merged and published, remove
+   `bootstrap-sha` in a normal maintenance PR. Release Please then uses its
+   release history to find the baseline.
+
+No old repository SHA, tag or release is required. Finish one release before
+merging another release PR. See the official
+[bootstrap documentation](https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md#bootstrapping).
 
 ### Destination repository setup
 
-- Update the absolute private-report URL in `.github/ISSUE_TEMPLATE/config.yml`
-  to the destination's `/security/advisories/new`. Confirm repository and README links.
+- Keep the absolute private-report URL in `.github/ISSUE_TEMPLATE/config.yml`
+  pointed at this repository's `/security/advisories/new`. Confirm repository and README links.
 - In a public destination repository, enable **Settings → Advanced Security →
   Private vulnerability reporting**. Preview the custom form and issue chooser.
   Files alone do not enable reporting. Administrators should watch **Custom →
@@ -136,13 +188,25 @@ See its [bootstrap documentation](https://github.com/googleapis/release-please/b
   Set the repository variable `RELEASE_PLEASE_ENABLED=true` only after bootstrap.
   Enable Actions under repository/organization policy, require **build** on PRs,
   and verify the final generated PR commit receives the full check.
+- Enable squash merging with **Pull request title** as the default commit message.
+  The maintainer's `Protect main` ruleset requires a PR, resolved review threads
+  and `build`, with zero required approving reviews and no bypass actors. Keep
+  preparation and bootstrap updates on this same PR path.
 - Allow the release workflow's `GITHUB_TOKEN` to write contents and pull requests;
   tag rules must permit it to create version tags. It uses that token to tag,
   upload, publish and update labels in one run, without relying on token-created
   tags to trigger another workflow.
 
-Private reporting, credentials, branch protection and hosted previews remain
-pending until the destination exists. A local schema check cannot prove them.
+The maintainer reports completing manual GitHub setup on 2026-10-12. After the
+repository became public, GitHub's API confirmed `main` as the default branch,
+the active `Protect main` ruleset requiring `build`, and enabled private
+vulnerability reporting. The initial commit's
+[CI run passed](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/actions/runs/38285336181);
+its **Prepare release PR** run was skipped, and no tags or releases existed.
+Token permissions/expiry, the current release-enable variable, form previews and
+notification delivery still need verification; public API checks cannot establish
+them. Initial publication, `bootstrap-sha` and enabling release PRs remain the
+steps above. Check the final preparation PR's CI separately from the initial run.
 
 ### Automatic releases
 
