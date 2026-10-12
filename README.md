@@ -5,7 +5,7 @@ a named color to a folder; its descendants inherit from the nearest colored
 ancestor. Child folders can override that assignment. Notes are never read or edited.
 
 **Desktop MVP · Obsidian 1.14.4 or later.** The plugin is not yet published in
-the community directory. Install the current source build using the
+the community directory. Follow the manual installation steps in the
 [user guide](docs/USER_GUIDE.md#installation).
 
 ## Features
@@ -74,8 +74,8 @@ mise exec -- pnpm run check
 ```
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md), [architecture](docs/ARCHITECTURE.md)
-and [testing](docs/TESTING.md). The [changelog](CHANGELOG.md) describes the unreleased
-MVP.
+and [testing](docs/TESTING.md). The [changelog](CHANGELOG.md) describes version
+**0.1.0**, the initial desktop MVP.
 
 ## License and provenance
 
