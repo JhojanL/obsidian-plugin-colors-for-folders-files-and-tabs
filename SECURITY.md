@@ -23,7 +23,7 @@ reporting button is unavailable, use
 for suspected Obsidian security issues or malicious-plugin behavior.
 
 Private vulnerability reporting is enabled for this repository. Maintainer setup
-is recorded in [DEVELOPMENT.md](docs/DEVELOPMENT.md#destination-repository-setup).
+is recorded in [RELEASE.md](docs/RELEASE.md#github-configuration).
 
 Reports are assessed privately, with follow-up for missing information and
 coordinated disclosure after a fix where practical. No response-time guarantee

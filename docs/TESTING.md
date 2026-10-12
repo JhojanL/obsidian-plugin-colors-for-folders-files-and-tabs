@@ -117,7 +117,9 @@ Presentation and final-build `styles.css` SHA-256:
 
 The final automated gate passed 281 plugin tests in 19 files and seven release
 metadata tests. Fifteen local workflow scenarios used simulated GitHub responses;
-hosted Actions, credentials and form previews remain unverified. The maintainer's
+hosted Actions, credentials and form previews were unverified at that review.
+Subsequent publication and configuration checks are recorded in
+[RELEASE.md](RELEASE.md#current-status). The maintainer's
 final keyboard/accessibility confirmation has no recorded bundle hash and must not
 be attached to the local rebuild as a new native pass. The maintainer confirms latest-build
 screenshots, without a capture hash or theme name. Linux/macOS and other current-build
