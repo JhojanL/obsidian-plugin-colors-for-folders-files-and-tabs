@@ -1,0 +1,19 @@
+pre-commit:
+  # Run fixes sequentially, and stop if any command fails.
+  piped: true
+  commands:
+    prettier:
+      glob: '*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,jsonc,css,md,mdx,yml,yaml}'
+      run: mise exec -- pnpm exec prettier --write -- {staged_files}
+      priority: 1
+      stage_fixed: true
+    eslint:
+      glob: '*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}'
+      run: mise exec -- pnpm exec eslint --fix --max-warnings=0 -- {staged_files}
+      priority: 2
+      stage_fixed: true
+
+pre-push:
+  commands:
+    check:
+      run: mise exec -- pnpm run check

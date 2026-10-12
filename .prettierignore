@@ -1,0 +1,11 @@
+node_modules/
+main.js
+*.map
+dist/
+coverage/
+pnpm-lock.yaml
+.env.local
+.dev-deploy.lock
+.dev-build-*/
+NOTICE
+LICENSE

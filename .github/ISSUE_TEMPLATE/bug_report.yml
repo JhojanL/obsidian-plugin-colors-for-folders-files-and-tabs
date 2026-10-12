@@ -1,0 +1,34 @@
+name: Bug report
+description: Report incorrect behavior, including accessibility issues.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues first. Use synthetic examples and remove private paths or settings.
+        Report suspected vulnerabilities through Security → Advisories → Report a vulnerability.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+      description: What were you trying to do, what did you expect and what happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include the smallest known example, or say if the issue is intermittent.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Plugin and Obsidian versions, operating system, theme and relevant snippets/plugins. For accessibility issues, include assistive technology/version and Narrator Scan Mode state.
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Screenshots or additional context
+      description: Optional. Attach only synthetic or redacted content.

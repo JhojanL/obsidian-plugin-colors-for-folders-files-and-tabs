@@ -1,0 +1,330 @@
+/* Foreground colors leave native backgrounds, active indicators, disclosure arrows, and focus cues intact. */
+.cfft-explorer-color.cfft-text-color > .nav-folder-title-content,
+.cfft-explorer-color.cfft-text-color > .nav-file-title-content {
+	color: var(--cfft-text);
+}
+
+.cfft-explorer-icons > .cfft-type-icon {
+	display: inline-flex;
+	flex: 0 0 var(--icon-s);
+	/* Exclude the glyph from the native text/disclosure baseline without changing row layout. */
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+	width: var(--icon-s);
+	height: var(--icon-s);
+	margin-inline-end: var(--size-4-2);
+	color: var(--icon-color);
+	--icon-size: var(--icon-s);
+	--icon-stroke: var(--icon-s-stroke-width);
+}
+
+/* Leave room for a recognizable glyph and the native close control in compressed tab strips. */
+.workspace-tab-header.cfft-tab-icons,
+.workspace .mod-root .workspace-tab-header.cfft-tab-icons {
+	min-width: calc(var(--icon-xs) * 2 + var(--size-4-2) * 3);
+}
+
+/* Override native Markdown icon hiding only for owned glyphs; retain the host glyph for cleanup. */
+.workspace
+	.workspace-tab-header.cfft-tab-icons
+	> .workspace-tab-header-inner
+	> .workspace-tab-header-inner-icon:not(.cfft-type-icon) {
+	display: none;
+}
+
+.workspace
+	.workspace-tab-header.cfft-tab-icons
+	> .workspace-tab-header-inner
+	> .workspace-tab-header-inner-icon.cfft-type-icon {
+	display: flex;
+}
+
+.cfft-explorer-icons > .cfft-type-icon,
+.cfft-tab-icons .cfft-type-icon {
+	pointer-events: none;
+}
+
+/* The focused-tab rule reads this token; scope it to the owned glyph, preserving native tab labels. */
+.cfft-tab-color.cfft-icon-color .cfft-type-icon {
+	--tab-text-color-focused-active-current: var(--cfft-icon);
+}
+
+.cfft-explorer-color.cfft-icon-color > .cfft-type-icon,
+.cfft-explorer-color.cfft-icon-color > .cfft-type-icon > .svg-icon,
+.cfft-tab-color.cfft-icon-color .cfft-type-icon,
+.cfft-tab-color.cfft-icon-color .cfft-type-icon > .svg-icon {
+	color: var(--cfft-icon);
+}
+
+.cfft-controls {
+	container-type: inline-size;
+}
+
+.cfft-controls button,
+.cfft-controls input:not([type='checkbox']),
+.cfft-controls select {
+	min-height: 32px;
+	min-width: 32px;
+}
+
+.cfft-controls [hidden] {
+	display: none;
+}
+
+.cfft-controls :is(button, input:not([type='checkbox']), select):focus-visible,
+.cfft-toggle-target:focus-within {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 2px;
+	scroll-margin-block: 8px;
+}
+
+.cfft-toggle-target {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 32px;
+	min-width: 32px;
+	padding: var(--size-4-1);
+	cursor: pointer;
+}
+
+.cfft-modal {
+	width: min(560px, calc(100vw - 32px));
+}
+
+.cfft-folder-context {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+	min-width: 0;
+	margin-block-end: var(--size-4-3);
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.cfft-folder-context-icon {
+	display: inline-flex;
+	flex: 0 0 var(--icon-s);
+	align-items: center;
+	width: var(--icon-s);
+	height: var(--icon-s);
+	--icon-size: var(--icon-s);
+	--icon-stroke: var(--icon-s-stroke-width);
+}
+
+.cfft-folder-context-path {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cfft-palette-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+}
+
+.cfft-settings .cfft-palette-content {
+	display: block;
+}
+
+.cfft-settings .setting-item.cfft-assignment-content {
+	display: block;
+	padding: 0;
+}
+
+.cfft-settings .cfft-assignment-content > .setting-item {
+	margin-inline-end: 0;
+}
+
+.cfft-palette {
+	container-type: inline-size;
+	width: 100%;
+}
+
+.cfft-palette-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--size-4-2);
+	max-width: 100%;
+}
+
+.cfft-palette-row {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	padding-inline-end: var(--size-4-1);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+}
+
+.cfft-palette-row.is-selected {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: -2px;
+	background-color: var(--background-modifier-active-hover);
+}
+
+.cfft-controls .cfft-palette-select {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	justify-content: flex-start;
+	gap: var(--size-4-2);
+	min-width: 0;
+	height: auto;
+	min-height: 48px;
+	padding: var(--size-4-2);
+	box-shadow: none;
+	background-color: transparent;
+	text-align: start;
+	white-space: normal;
+}
+
+.cfft-controls .cfft-palette-select:hover,
+.cfft-controls .cfft-palette-action:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.cfft-controls .cfft-palette-action {
+	flex: 0 0 32px;
+	padding: var(--size-4-1);
+	box-shadow: none;
+	background-color: transparent;
+}
+
+.cfft-color-label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width: 0;
+}
+
+.cfft-swatch {
+	display: inline-block;
+	flex: 0 0 20px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	background-color: var(--cfft-preview-accent);
+}
+
+.cfft-color-name,
+.cfft-folder-path,
+.cfft-modal p,
+.cfft-controls .setting-item-name,
+.cfft-controls .setting-item-description,
+.cfft-reference-list {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.cfft-controls .setting-item-info,
+.cfft-controls .setting-item-control {
+	min-width: 0;
+	max-width: 100%;
+}
+
+.cfft-controls .setting-item-control {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+}
+
+.cfft-visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cfft-error {
+	color: var(--text-error);
+	overflow-wrap: anywhere;
+}
+
+.cfft-error:empty {
+	display: none;
+}
+
+.cfft-color-preview {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	background-color: var(--background-secondary);
+	color: var(--cfft-preview-text, var(--text-normal));
+	overflow-wrap: anywhere;
+}
+
+.cfft-color-preview[hidden] {
+	display: none;
+}
+
+.cfft-folder-context ~ .cfft-dialog-actions {
+	margin-block-start: var(--size-4-3);
+}
+
+.cfft-dialog-actions .setting-item-control {
+	width: 100%;
+}
+
+.cfft-reference-list {
+	max-height: 160px;
+	overflow: auto;
+}
+
+@container (max-width: 440px) {
+	.cfft-palette-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.cfft-controls
+		.setting-item:not(.setting-item-heading, :has(.cfft-toggle-target)) {
+		align-items: stretch;
+		flex-direction: column;
+		gap: var(--size-4-2);
+	}
+
+	.cfft-controls
+		.setting-item:not(:has(.cfft-toggle-target))
+		> .setting-item-control {
+		justify-content: flex-start;
+	}
+
+	.cfft-controls input[type='text'] {
+		max-width: 100%;
+	}
+
+	.cfft-controls .setting-item-control button {
+		max-width: 100%;
+		height: auto;
+		white-space: normal;
+	}
+}
+
+@container (max-width: 220px) {
+	.cfft-palette-row {
+		flex-wrap: wrap;
+		padding-block-end: var(--size-4-1);
+	}
+
+	.cfft-controls .cfft-palette-select {
+		flex-basis: 100%;
+	}
+
+	.cfft-palette-select + .cfft-palette-action {
+		margin-inline-start: auto;
+	}
+}

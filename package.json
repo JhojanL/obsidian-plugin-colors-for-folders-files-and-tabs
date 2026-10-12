@@ -1,0 +1,41 @@
+{
+	"name": "colors-for-folders-files-and-tabs",
+	"version": "0.1.0",
+	"description": "Add coordinated colors to folders, files, and tabs.",
+	"private": true,
+	"main": "main.js",
+	"type": "module",
+	"packageManager": "pnpm@12.8.1",
+	"engines": {
+		"node": "24.21.0"
+	},
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "pnpm run typecheck && node esbuild.config.mjs production",
+		"dev:deploy": "node --env-file-if-exists=.env.local scripts/dev-deploy.mjs",
+		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint . --max-warnings=0",
+		"format:check": "prettier --check .",
+		"check:release": "node scripts/check-release.mjs",
+		"test:release": "node --test tests/tooling/*.test.mjs",
+		"test": "tsc --noEmit -p tsconfig.tests.json && vitest run",
+		"check": "pnpm run format:check && pnpm run lint && pnpm run check:release && pnpm run test:release && pnpm run test && pnpm run build"
+	},
+	"keywords": [],
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "24.13.3",
+		"esbuild": "0.28.2",
+		"eslint": "9.39.5",
+		"globals": "17.13.0",
+		"jsdom": "30.1.1",
+		"lefthook": "2.1.16",
+		"obsidian": "1.13.1",
+		"prettier": "3.9.9",
+		"typescript": "6.0.3",
+		"typescript-eslint": "8.71.0",
+		"vite": "8.3.2",
+		"vitest": "5.0.3"
+	}
+}

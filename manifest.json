@@ -1,0 +1,9 @@
+{
+	"id": "colors-for-folders-files-and-tabs",
+	"name": "Colors for Folders Files and Tabs",
+	"version": "0.1.0",
+	"minAppVersion": "1.14.4",
+	"description": "Bring your vault to life with custom folder colors that flow to files and tab icons.",
+	"author": "Jhojan Andres Lerma Achoma",
+	"isDesktopOnly": true
+}

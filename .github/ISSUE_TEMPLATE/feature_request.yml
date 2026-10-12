@@ -1,0 +1,26 @@
+name: Feature request
+description: Describe a useful improvement to the desktop plugin.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check existing requests first. The MVP is desktop-only; new features and dependencies need scope review.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or task
+      description: What are you trying to accomplish, and what makes it difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Describe the behavior you would find useful. Alternatives and examples are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Optional examples or screenshots using synthetic content.

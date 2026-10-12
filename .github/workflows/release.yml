@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: >-
+      github.event_name == 'push' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       github.event.pull_request.head.ref == 'release-please--branches--main' &&
+       contains(github.event.pull_request.labels.*.name, 'autorelease: pending'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.ref }}
+
+      - name: Use pinned tools
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4
+        with:
+          version: 2026.9.11
+
+      - name: Validate release metadata
+        id: metadata
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          version=$(mise exec -- node -p "JSON.parse(require('node:fs').readFileSync('package.json', 'utf8')).version")
+          tag="$version"
+          if [ "$REF_TYPE" = tag ]; then tag="$REF_NAME"; fi
+          mise exec -- node scripts/check-release.mjs "$tag"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - run: mise exec -- pnpm install --frozen-lockfile
+
+      - name: Run full checks and build
+        run: mise exec -- pnpm run check
+
+      - name: Tag, upload and publish the checked commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ steps.metadata.outputs.version }}
+        run: |
+          test -s main.js
+          test -s manifest.json
+          test -s styles.css
+          commit=$(git rev-parse HEAD)
+          remote_tag=$(git ls-remote origin "refs/tags/$RELEASE_TAG")
+          if [ -n "$remote_tag" ]; then
+            git fetch origin "refs/tags/$RELEASE_TAG:refs/tags/$RELEASE_TAG"
+            test "$(git rev-parse "$RELEASE_TAG^{commit}")" = "$commit"
+          else
+            git tag "$RELEASE_TAG" "$commit"
+            git push origin "refs/tags/$RELEASE_TAG"
+          fi
+
+          gh api --paginate --slurp "repos/$GH_REPO/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
+          draft=$(jq -r --arg tag "$RELEASE_TAG" '.[][] | select(.tag_name == $tag) | .draft' "$RUNNER_TEMP/releases.json")
+          if [ -z "$draft" ]; then
+            gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" --draft --generate-notes
+            draft=true
+          fi
+          if [ "$draft" = true ]; then
+            gh release upload "$RELEASE_TAG" main.js manifest.json styles.css --clobber
+            gh release edit "$RELEASE_TAG" --draft=false
+          fi
+          gh release view "$RELEASE_TAG" --json isDraft,assets > "$RUNNER_TEMP/published-release.json"
+          jq -e '.isDraft == false and ([.assets[].name] | (index("main.js") != null and index("manifest.json") != null and index("styles.css") != null))' "$RUNNER_TEMP/published-release.json"
+
+      - name: Mark the published release PR as tagged
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_PR: ${{ github.event.pull_request.number }}
+        run: |
+          commit=$(git rev-parse HEAD)
+          gh api --paginate --slurp "repos/$GH_REPO/commits/$commit/pulls?per_page=100" > "$RUNNER_TEMP/release-prs.json"
+          prs=$(jq -r --arg commit "$commit" --arg repo "$GH_REPO" \
+            '.[][] | select(.merged_at != null and .merge_commit_sha == $commit and .base.ref == "main" and .head.ref == "release-please--branches--main" and .head.repo.full_name == $repo) | select(any(.labels[]; .name == "autorelease: pending" or .name == "autorelease: tagged")) | .number' \
+            "$RUNNER_TEMP/release-prs.json")
+          if [ -n "$RELEASE_PR" ] && [ "$prs" != "$RELEASE_PR" ]; then
+            echo 'The merged release PR was not found for the published commit; rerun to retry.' >&2
+            exit 1
+          fi
+          if [ -n "$prs" ]; then
+            gh label create 'autorelease: tagged' --color 0E8A16 --description 'Release is published' --force
+            for pr in $prs; do
+              gh pr edit "$pr" --add-label 'autorelease: tagged' --remove-label 'autorelease: pending'
+            done
+          fi

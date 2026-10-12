@@ -1,0 +1,9 @@
+packages:
+  - tooling/eslint
+allowBuilds:
+  esbuild: true
+  lefthook: false
+overrides:
+  'obsidian>moment@2.29.4': 2.31.0
+storeDir: .pnpm-store
+minimumReleaseAgeStrict: true
