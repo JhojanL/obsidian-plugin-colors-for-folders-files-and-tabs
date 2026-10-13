@@ -79,5 +79,5 @@ credentials, dependencies, vault data or recovery copies.
 
 ## Releases
 
-See [RELEASE.md](RELEASE.md) for GitHub configuration, the initial release and
-bootstrap, automatic versioning/publication, recovery and Obsidian submission.
+See [RELEASE.md](RELEASE.md) for maintenance releases, automatic versioning and
+changelogs, GitHub configuration, publication and recovery.
