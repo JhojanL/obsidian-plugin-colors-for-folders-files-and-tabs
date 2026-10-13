@@ -44,7 +44,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           branch=$(gh pr list --state open --base main \
-            --head release-please--branches--main --label 'autorelease: pending' \
+            --head release-please--branches--main--components--colors-for-folders-files-and-tabs --label 'autorelease: pending' \
             --json headRefName,isCrossRepository \
             --jq '[.[] | select(.isCrossRepository == false)] | if length > 1 then error("Multiple release PRs found") elif length == 1 then .[0].headRefName else "" end')
           echo "branch=$branch" >> "$GITHUB_OUTPUT"

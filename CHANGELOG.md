@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.1](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/compare/0.1.0...0.1.1) (2026-10-13)
+
+### Bug Fixes
+
+- **review:** address Obsidian findings and attest releases ([#3](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/issues/3)) ([2ce717a](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/commit/2ce717a9185e6de2c258df7a9823bd3eb8e6c7aa))
+
 ## 0.1.0 (2026-10-12)
 
 Initial desktop MVP for Obsidian **1.14.4 or later**.

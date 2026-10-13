@@ -1,6 +1,6 @@
 {
 	"name": "colors-for-folders-files-and-tabs",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Add coordinated colors to folders, files, and tabs.",
 	"private": true,
 	"main": "main.js",
