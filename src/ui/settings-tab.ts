@@ -231,6 +231,7 @@ export class ColorSettingsTab extends PluginSettingTab {
 		channel: keyof ColoringOptions,
 		name: string,
 	): void {
+		setting.setClass('cfft-toggle-setting');
 		setting.addToggle((toggle) => {
 			let synchronizing = false;
 			const target = setting.controlEl.createDiv({

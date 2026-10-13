@@ -1,5 +1,10 @@
 # Colors for Folders Files and Tabs
 
+[![CI status on main](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/actions/workflows/ci.yml)
+[![Release workflow status](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/actions/workflows/release.yml/badge.svg)](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/actions/workflows/release.yml)
+[![Latest release](https://img.shields.io/github/v/release/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs)](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 Give related folders, files and tab icons coordinated colors in Obsidian. Assign
 a named color to a folder; its descendants inherit from the nearest colored
 ancestor. Child folders can override that assignment. Notes are never read or edited.
@@ -77,6 +82,13 @@ mise exec -- pnpm run check
 Start with [CONTRIBUTING.md](CONTRIBUTING.md), [architecture](docs/ARCHITECTURE.md)
 and [testing](docs/TESTING.md). The [changelog](CHANGELOG.md) describes version
 **0.1.0**, the initial desktop MVP.
+
+## Support development
+
+If this plugin is useful to you, you can support its development on Ko-fi.
+Donations are optional.
+
+[![Support on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J7M828OH4E)
 
 ## License and provenance
 

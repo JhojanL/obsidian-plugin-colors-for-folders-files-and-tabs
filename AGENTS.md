@@ -100,7 +100,7 @@ available checks directly. Use **ColorsTest only**, never the user's other vault
 - Preserve the manifest's ID, name, author, description, version, minimum app version and desktop-only declaration. Check the official manifest reference when changing metadata or adopting newer APIs.
 - A release synchronizes package/manifest and Release Please versions plus `versions.json`, uses the exact `x.y.z` manifest version as its tag without a `v` prefix, and attaches `main.js`, `manifest.json` and `styles.css` individually.
 - Release Please prepares PRs and stays disabled until configuration and bootstrap in [RELEASE](docs/RELEASE.md) are complete. Use Conventional Commits and a dedicated token so generated PR updates receive CI. Discover existing open release PRs on reruns even when Release Please returns no changes.
-- Push/PR CI validates builds. Merging a release PR automatically runs full checks on the merged commit, tags it, uploads assets, publishes and updates PR labels. Initial version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Community-directory submission remains a separate maintainer action.
+- Push/PR CI validates builds. Merging a release PR automatically runs full checks on the merged commit, attests all three release assets with the pinned `actions/attest` action, tags it, uploads assets, publishes and updates PR labels. Keep ID-token and attestation write permissions scoped to the release job. Initial version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Community-directory submission remains a separate maintainer action.
 
 ## Resources
 

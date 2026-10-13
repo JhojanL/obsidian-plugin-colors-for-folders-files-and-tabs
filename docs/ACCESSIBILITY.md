@@ -47,6 +47,11 @@ is disabled by default. Focus, selected state and folder/file names remain nativ
 | Native ColorsTest presentation checks, 2026-10-10 | Obsidian 1.14.4, Default theme, light/dark; sampled normal/hover/selected contrast, alignment, long labels, 200% zoom, picker and pop-out decoration cleanup | These checks precede the final keyboard revision and remain tied to their recorded artifact. |
 | Maintainer confirmation, 2026-10-10               | Screen-reader announcements, Windows contrast themes and complete keyboard-only Settings navigation; Narrator workaround above                               | Narrator version, contrast-theme names and exact manual-test artifact hash are unspecified.  |
 
+On 2026-10-12, the maintainer confirmed that keyboard navigation and screen-reader
+operation continue working after the Obsidian review fixes. The screen-reader
+version, individual announcement details and manual-test artifact hash were not
+separately recorded. See the [review follow-up](TESTING.md#obsidian-review-follow-up).
+
 Earlier Minimal/Things checks do not validate the current build. Linux/macOS,
 other current-build themes and other assistive technologies remain untested.
 Mobile support is deferred. These observations are scoped evidence, not a claim

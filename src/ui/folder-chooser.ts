@@ -1,4 +1,4 @@
-import { SuggestModal, TFolder } from 'obsidian';
+import { SuggestModal, type TFolder } from 'obsidian';
 import type { ColorWorkflow } from '../settings/workflow';
 
 /** Search loaded folder metadata, including folders with no open note, using Obsidian's native suggester. */
@@ -20,13 +20,12 @@ export class FolderChooser extends SuggestModal<TFolder> {
 	getSuggestions(query: string): TFolder[] {
 		const needle = query.trim().toLocaleLowerCase();
 		return this.app.vault
-			.getAllLoadedFiles()
+			.getAllFolders(false)
 			.filter(
-				(file): file is TFolder =>
-					file instanceof TFolder &&
-					file.path !== '/' &&
-					file.path !== '' &&
-					file.path.toLocaleLowerCase().includes(needle),
+				(folder) =>
+					folder.path !== '/' &&
+					folder.path !== '' &&
+					folder.path.toLocaleLowerCase().includes(needle),
 			)
 			.sort((a, b) => a.path.localeCompare(b.path));
 	}
