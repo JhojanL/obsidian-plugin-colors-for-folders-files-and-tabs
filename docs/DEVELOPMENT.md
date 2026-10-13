@@ -19,6 +19,16 @@ Use `mise exec -- pnpm run dev` to watch, or `mise exec -- pnpm run build` for a
 production bundle. [TESTING.md](TESTING.md#automated-checks) lists focused checks
 and coverage boundaries. Tests and CI do not launch Obsidian.
 
+Apply formatting and automatic lint fixes with:
+
+```bash
+mise exec -- pnpm run format
+mise exec -- pnpm run lint:fix
+```
+
+Review the resulting diff and address any remaining lint errors. To format only
+one file, use `mise exec -- pnpm exec prettier --write CODE_OF_CONDUCT.md`.
+
 Pre-commit formats/lints staged files sequentially and restages fixes; inspect the
 index when partially staging. Pre-push runs the full gate. CI runs the same gate
 on pushes to `main` and pull requests targeting `main`. Keep host and release

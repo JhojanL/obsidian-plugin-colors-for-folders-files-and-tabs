@@ -16,6 +16,8 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint . --max-warnings=0",
+		"lint:fix": "eslint . --fix --max-warnings=0",
+		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"check:release": "node scripts/check-release.mjs",
 		"test:release": "node --test tests/tooling/*.test.mjs",
