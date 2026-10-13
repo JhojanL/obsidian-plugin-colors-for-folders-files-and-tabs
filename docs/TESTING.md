@@ -128,3 +128,36 @@ themes remain untested; mobile and automated E2E are deferred.
 An earlier review observed two closed documents surviving controlled collection.
 Their retaining owner was not established. Tracked plugin cleanup passed; preserve
 this uncertainty and investigate a reproduced plugin defect if one emerges.
+
+### Obsidian review follow-up
+
+On 2026-10-12, the review fixes passed the full local gate: 282 plugin tests in
+19 files, release-metadata tests, formatting, lint and production build.
+Actionlint 1.7.12 passed all workflows. Eight local scenarios with simulated GitHub
+responses passed: initial publication, partial draft uploads, published-asset
+preservation, tag disagreement, API failure, failed and retried label updates,
+and rediscovery of an unchanged release PR. These simulations do not verify
+GitHub's hosted attestation service or repository permissions.
+
+The deployed and reloaded ColorsTest artifacts had these SHA-256 values:
+
+- `main.js`: `b649f13d9efb0a41124063603ac5339150c350a3fbde5f8acfbce891bd3af26e`
+- `styles.css`: `d4fc7b3280f03ca14c2c4c3d454a24379256d722f7ae8939cb74e1bba303167c`
+
+Native checks used Windows Obsidian 1.14.4, Default theme and dark appearance.
+Folder search returned the expected full folder paths. All three Appearance
+rows retained horizontal layout at normal width and with the settings container
+temporarily narrowed to 400 CSS pixels; ordinary setting controls stacked and
+toggle rows had no horizontal overflow. The narrow settings-window capture was
+inspected. The selection live region retained `role="status"`, remained in the
+DOM and used computed `clip: rect(0px, 0px, 0px, 0px)`. No native errors were
+captured. Settings were unchanged; temporary styles, dialogs, probes and vault
+captures were removed, and the original focused element was restored.
+
+The maintainer subsequently confirmed on 2026-10-12 that keyboard navigation and
+screen-reader operation continue working after the review fixes. This is a
+maintainer retest; the screen-reader version, individual announcement details and
+manual-test artifact hash were not separately recorded. Hosted artifact
+attestations and a fresh Obsidian review remain **awaiting-manual**. The
+folder-only API still enumerates folder metadata when searching; no claim is made
+that a future review will remove every enumeration recommendation.

@@ -40,7 +40,8 @@ async function fixture(data: unknown = null) {
 	const app = {
 		workspace,
 		vault: {
-			getAllLoadedFiles: () => files,
+			getAllFolders: () =>
+				files.filter((file) => file instanceof TFolder),
 			getAbstractFileByPath: (path: string) =>
 				files.find((file) => file.path === path) ?? null,
 		},
@@ -436,6 +437,20 @@ describe('folder assignment and palette management', () => {
 		expect(chooser.getSuggestions('').map((folder) => folder.path)).toEqual(
 			['Archive', 'Projects', 'Projects/Empty'],
 		);
+	});
+	it('refreshes folder suggestions after metadata changes without enumerating files', async () => {
+		const { workflow, app, files } = await fixture();
+		const enumerateFiles = vi.fn(() => {
+			throw new Error('Folder selection must not enumerate files.');
+		});
+		app.vault.getAllLoadedFiles = enumerateFiles;
+		const chooser = new FolderChooser(workflow);
+		expect(chooser.getSuggestions('new')).toEqual([]);
+		files.push(new TFolder('Projects/New empty folder'));
+		expect(
+			chooser.getSuggestions(' NEW ').map((folder) => folder.path),
+		).toEqual(['Projects/New empty folder']);
+		expect(enumerateFiles).not.toHaveBeenCalled();
 	});
 	it('keeps swatch selection local on Cancel, then applies parent/child and clears back to inheritance', async () => {
 		const { workflow, store, storage } = await fixture();

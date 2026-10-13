@@ -32,10 +32,12 @@ Keep these settings when maintaining the repository:
   The configured ruleset permits squash merges, has zero required approving
   reviews and no bypass actors, and blocks deletion and force pushes. Preparation
   and bootstrap changes follow the same PR process.
-- **Actions:** allow `actions/checkout`, `jdx/mise-action` and
+- **Actions:** allow `actions/checkout`, `actions/attest`, `jdx/mise-action` and
   `googleapis/release-please-action`. Workflows pin action revisions and the mise
   version. Restricted default workflow permissions can remain in place; the
-  release job explicitly requests contents and pull-request write permissions.
+  release job explicitly requests contents, pull-request, ID-token and attestation
+  write permissions. Attestations use GitHub's OIDC identity and `GITHUB_TOKEN`;
+  no additional secret is needed for this public repository.
   Tag rules must allow version tags to be created.
 - **Repository secret — `RELEASE_PLEASE_TOKEN`:** store a fine-grained PAT scoped
   to this repository with **Contents**, **Pull requests** and **Issues** read/write
@@ -122,7 +124,8 @@ No old repository SHA, tag or release is needed. See the official
 3. Merge that release PR when ready to publish. The **Release** workflow requires
    the repository's release branch and `autorelease: pending` label, checks out
    the exact merged commit, validates metadata and runs the full gate.
-4. After checks pass, it creates the exact `x.y.z` tag, uploads `main.js`,
+4. After checks pass, it attests `main.js`, `manifest.json` and `styles.css`,
+   creates the exact `x.y.z` tag, uploads `main.js`,
    `manifest.json` and `styles.css` to a draft, and publishes automatically.
    Merging an ordinary preparation or bootstrap PR does not publish a release.
 5. After verifying the published release and assets, the workflow replaces
@@ -159,8 +162,27 @@ rather than being treated as an absent release.
 
 The first release verified the publication workflow. The first generated release
 PR must separately verify the dedicated token and CI on its final commit. Do not
-create live tags/releases merely to test automation. Attestations are omitted;
-no repository-plan eligibility is assumed.
+create live tags/releases merely to test automation.
+
+### Artifact attestations
+
+The release job uses a pinned `actions/attest` revision to record build provenance
+for all three checked assets before publication. An attestation failure stops
+publication. GitHub stores the signed attestations separately from the three
+release downloads. See [GitHub's provenance guidance](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds).
+
+After downloading a release's assets, verify each file:
+
+```bash
+gh attestation verify main.js --repo JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs
+gh attestation verify manifest.json --repo JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs
+gh attestation verify styles.css --repo JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs
+```
+
+This workflow change applies to future releases; it does not attest the already
+published `0.1.0` assets. Hosted attestation creation and verification remain
+**awaiting-manual** until the next authorized release. Keep published assets and
+tags unchanged, and verify the downloaded bytes rather than a local rebuild.
 
 ## Obsidian submission
 
