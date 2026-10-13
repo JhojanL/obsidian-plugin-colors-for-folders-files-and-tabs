@@ -14,12 +14,13 @@ for this repository's tooling, settings protection and desktop MVP scope.
 - Start with [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md), [docs/TESTING.md](docs/TESTING.md) and the documentation relevant to the requested change.
 - The maintainer accepted the desktop MVP on **2026-10-12**. Planning files and diagnostic captures are retired. Do not recreate performance harnesses, numerical performance gates or a report hierarchy.
 - Preserve settings protection, icon/title alignment and contrast fixes. Windows verification, artifact boundaries, the Narrator Scan Mode workaround and remaining limitations are recorded in [docs/TESTING.md](docs/TESTING.md) and [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
-- The maintainer confirms latest-build images; light-mode captures are optional. Release Please prepares PRs, with automatic tagging/publication on merge. The initial `0.1.0` release is published; `Protect main` and private vulnerability reporting are enabled. Bootstrap is merged and Release Please created PR #4 with token-triggered CI. Final checks on its repair, hosted attestations and first generated-release publication remain pending; follow [release configuration](docs/RELEASE.md#github-configuration).
-- The repository `JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs` uses `main`. Continue changes through PRs requiring `build`; do not create/copy repositories or rewrite history without an explicit instruction. Merge `bootstrap-sha` from the published `0.1.0` tag's commit before enabling Release Please, as described in [RELEASE](docs/RELEASE.md#initial-release-and-bootstrap).
+- The plugin is published in the [Obsidian community directory](https://community.obsidian.md/plugins/colors-for-folders-files-and-tabs) with **Review: Passed**. Initial submission and bootstrap are complete. Release `0.1.1` is published; its hosted checks, attestation creation, publication and label update passed. Independent verification of downloaded attestations remains **awaiting-manual**; see [release status](docs/RELEASE.md#current-status).
+- On **2026-10-12**, the maintainer confirmed the screenshots represent that day's build and that it works normally. Capture hashes and the theme name remain unspecified; light-mode captures are optional. Preserve the evidence boundaries in [image notes](assets/images/README.md) and TESTING.
+- The repository `JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs` uses `main`. Continue changes through PRs requiring `build`; `Protect main` and private vulnerability reporting are enabled. Do not create/copy repositories or rewrite history without an explicit instruction. Do not repeat bootstrap or reset the version baseline; its remaining configuration cleanup is documented in [RELEASE](docs/RELEASE.md#initial-release-and-bootstrap).
 - Keep changes scoped to the request, run appropriate checks and record actual results in the PR or review notes. Never turn failures or unavailable checks into passes; use `awaiting-manual` for unavailable required host checks. Documentation-only edits do not require new host runs.
 - Preserve unrelated local changes. Update AGENTS.md **last** when changing project scope or workflow.
 - Desktop only for the MVP. `tests/e2e/desktop/` and `tests/e2e/mobile/` contain future Playwright documentation, not runnable tests or mobile support. Do not add a runner/dependency unless that work is explicitly requested.
-- Do not create live tags/releases to test automation. Merging a release PR authorizes its automatic tagging/publication. Initial release tagging, repository transfer and community-directory submission require separate maintainer instructions.
+- Do not create live tags/releases to test automation. Merging a release PR authorizes its automatic tagging/publication. Repository transfer or a new directory submission requires separate maintainer instructions.
 
 ## Build and tests
 
@@ -46,7 +47,8 @@ use esbuild; host/build tooling stays outside
 `mise exec -- pnpm run lint` for a focused lint check.
 
 Pre-commit formats/lints matching staged files sequentially and restages fixes;
-inspect the index when partially staging. Pre-push and push/PR CI run the full gate.
+inspect the index when partially staging. Pre-push runs the full gate. CI runs it
+on pushes to `main` and pull requests targeting `main`.
 Do not bypass hooks, weaken assertions or suppress findings to manufacture a pass.
 Run focused tests while editing and the full gate once the change is ready.
 Documentation-only changes need formatting and link checks, not new runtime tests.
@@ -99,8 +101,8 @@ available checks directly. Use **ColorsTest only**, never the user's other vault
 
 - Preserve the manifest's ID, name, author, description, version, minimum app version and desktop-only declaration. Check the official manifest reference when changing metadata or adopting newer APIs.
 - A release synchronizes package/manifest and Release Please versions plus `versions.json`, uses the exact `x.y.z` manifest version as its tag without a `v` prefix, and attaches `main.js`, `manifest.json` and `styles.css` individually.
-- Release Please prepares PRs after configuration and bootstrap in [RELEASE](docs/RELEASE.md) are complete. Use Conventional Commits and a dedicated token so generated PR updates receive CI. Discovery, publication and label recovery must match the generated component-suffixed branch documented in RELEASE; tag naming does not control PR branch naming. Discover existing open release PRs on reruns even when Release Please returns no changes.
-- Push/PR CI validates builds. Merging a release PR automatically runs full checks on the merged commit, attests all three release assets with the pinned `actions/attest` action, tags it, uploads assets, publishes and updates PR labels. Keep ID-token and attestation write permissions scoped to the release job. Initial version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Community-directory submission remains a separate maintainer action.
+- Release Please prepares version and `CHANGELOG.md` updates in release PRs using Conventional Commits; merging the PR updates the changelog on `main` before publication. Preserve the dedicated token so generated PR updates receive CI. Discovery, publication and label recovery must match the generated component-suffixed branch documented in [RELEASE](docs/RELEASE.md); tag naming does not control PR branch naming. Discover existing open release PRs on reruns even when Release Please returns no changes.
+- CI validates pushes to `main` and pull requests targeting `main`. Merging a release PR automatically runs full checks on the merged commit, attests all three release assets with the pinned `actions/attest` action, tags it, uploads assets, publishes and updates PR labels. Keep ID-token and attestation write permissions scoped to the release job. Version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Normal maintenance releases do not repeat the initial community-directory submission.
 
 ## Resources
 

@@ -20,8 +20,9 @@ production bundle. [TESTING.md](TESTING.md#automated-checks) lists focused check
 and coverage boundaries. Tests and CI do not launch Obsidian.
 
 Pre-commit formats/lints staged files sequentially and restages fixes; inspect the
-index when partially staging. Pre-push and push/PR CI run the full gate. Keep host
-and release tooling outside `src/`.
+index when partially staging. Pre-push runs the full gate. CI runs the same gate
+on pushes to `main` and pull requests targeting `main`. Keep host and release
+tooling outside `src/`.
 
 ## Test in Windows Obsidian
 
@@ -79,5 +80,5 @@ credentials, dependencies, vault data or recovery copies.
 
 ## Releases
 
-See [RELEASE.md](RELEASE.md) for GitHub configuration, the initial release and
-bootstrap, automatic versioning/publication, recovery and Obsidian submission.
+See [RELEASE.md](RELEASE.md) for maintenance releases, automatic versioning and
+changelogs, GitHub configuration, publication and recovery.

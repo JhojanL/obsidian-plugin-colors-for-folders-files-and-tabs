@@ -5,22 +5,35 @@
 [![Latest release](https://img.shields.io/github/v/release/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs)](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-Give related folders, files and tab icons coordinated colors in Obsidian. Assign
-a named color to a folder; its descendants inherit from the nearest colored
-ancestor. Child folders can override that assignment. Notes are never read or edited.
+Make projects and sections of your vault easier to spot with folder colors.
+Choose a color for a folder, and its files and subfolders follow along. Give any
+subfolder its own color whenever you want it to stand out.
 
-**Desktop MVP · Obsidian 1.14.4 or later.** The plugin is not yet published in
-the community directory. Follow the manual installation steps in the
-[user guide](docs/USER_GUIDE.md#installation).
+Use the built-in palette or create your own colors. Choose where they appear:
+folder and file icons, tab icons, or names in the file explorer. Everything stays
+local, and your notes remain untouched.
+
+**Available for desktop Obsidian 1.14.4 or later.**
+
+## Installation
+
+Find the plugin in the [Obsidian community directory](https://community.obsidian.md/plugins/colors-for-folders-files-and-tabs),
+or install it from Obsidian:
+
+1. Open **Settings → Community plugins** and turn on community plugins if needed.
+2. Select **Browse** and search for **Colors for Folders Files and Tabs**.
+3. Select **Install**, then **Enable**.
+
+For updates or manual installation, see the [user guide](docs/USER_GUIDE.md#installation).
 
 ## Features
 
-- Named palette with editable names, six-digit hex colors and a native color picker.
-- Folder inheritance with subtle color variations for descendants.
-- File-type icons and independent Explorer icon, Explorer name and tab-icon coloring.
-- Folder context-menu actions, native settings and command-palette access.
-- Local settings, failed-save retry and protection for damaged or newer settings.
-- Offline operation without telemetry, accounts, note edits or a self-updater.
+- A named palette with built-in colors, custom hex values and a color picker.
+- Folder colors that flow to files and subfolders, with subtle variations.
+- Separate controls for file explorer icons, file explorer names and tab icons.
+- Quick access through folder menus, settings and the command palette.
+- Saved preferences with recovery guidance if settings cannot be loaded or saved.
+- Offline use without accounts, telemetry or changes to your notes.
 
 ## See it in use
 
@@ -33,10 +46,9 @@ section to use the presentation on the right. Tab names keep the theme's styling
 
 ![Four file-backed tabs with cyan, blue, pink and yellow icons; the two README tabs have different folder colors.](assets/images/tabs_color.png)
 
-Maintainer-supplied captures show synthetic **ColorsTest** content in Obsidian
-**1.14.4**, with dark appearance. The maintainer confirms the latest build; the
-theme name and capture artifact hash are unspecified. See the
-[image notes](assets/images/README.md).
+Screenshots show the October 12, 2026 build in Obsidian **1.14.4**, with dark
+appearance and synthetic **ColorsTest** content. The maintainer confirmed normal
+operation. See the [image notes](assets/images/README.md).
 
 ## First use
 
@@ -71,7 +83,7 @@ vulnerabilities privately using [SECURITY.md](SECURITY.md).
 ## Development and contribution
 
 [Development](docs/DEVELOPMENT.md) covers setup and deployment.
-[Releases](docs/RELEASE.md) covers GitHub configuration, publication and submission.
+[Releases](docs/RELEASE.md) covers release automation, configuration and recovery.
 Use mise with Node **24.21.0**, pnpm **12.8.1** and the committed TypeScript **6.0.3**
 pin. The full local check is:
 
@@ -80,8 +92,7 @@ mise exec -- pnpm run check
 ```
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md), [architecture](docs/ARCHITECTURE.md)
-and [testing](docs/TESTING.md). The [changelog](CHANGELOG.md) describes version
-**0.1.0**, the initial desktop MVP.
+and [testing](docs/TESTING.md). See the [changelog](CHANGELOG.md) for release history.
 
 ## Support development
 

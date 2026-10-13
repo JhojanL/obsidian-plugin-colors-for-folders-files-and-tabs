@@ -7,8 +7,23 @@ or changes note contents.
 
 ## Installation
 
-Use desktop Obsidian **1.14.4 or later**. The plugin is not yet listed in the
-community directory; install it manually.
+Use desktop Obsidian **1.14.4 or later**.
+
+1. Open **Settings → Community plugins** and turn on community plugins if needed.
+2. Select **Browse** and search for **Colors for Folders Files and Tabs**.
+3. Select **Install**, then **Enable**.
+
+You can also open the [community listing](https://community.obsidian.md/plugins/colors-for-folders-files-and-tabs)
+and select **Add to Obsidian**.
+
+### Updates
+
+Open **Settings → Community plugins** and select **Check for updates**. When an
+update is available, select **Update** next to this plugin under **Installed plugins**.
+Updates are installed through Obsidian; the plugin has no self-updater.
+See [Obsidian's plugin guide](https://obsidian.md/help/community-plugins) for details.
+
+### Manual installation
 
 1. For a published version, download `main.js`, `manifest.json` and `styles.css`
    from the same [GitHub release](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/releases).
@@ -85,8 +100,9 @@ theme's styling. Native focus, selection and names remain usable without color.
 ![Appearance section with all three coloring preferences enabled beneath folder overrides.](../assets/images/config_panel_2.png)
 
 This capture has **Color names** enabled; the default is off. All supplied images
-show ColorsTest, Obsidian 1.14.4 and dark appearance. The maintainer confirms the
-latest build; theme and capture hash are unspecified.
+show the October 12, 2026 build in Obsidian 1.14.4, with dark appearance and
+synthetic ColorsTest content. The maintainer confirmed normal operation.
+See the [image notes](../assets/images/README.md).
 
 ## Commands and keyboard use
 

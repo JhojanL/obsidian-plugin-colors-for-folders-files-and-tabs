@@ -23,8 +23,8 @@ Release-tool tests use Node's built-in runner and stay outside plugin discovery.
 They check metadata and version synchronization, not hosted GitHub execution.
 For release workflow changes, check Actions syntax and exercise unchanged-PR
 recovery, partial uploads, label retries and conflicting tags with local stubs.
-Do not publish a real release just to test automation; verify the first authorized
-destination release separately.
+Do not publish a real release just to test automation; verify hosted behavior
+during an authorized release.
 
 Coverage includes model validation/inheritance, protected settings and retry,
 contrast with independent oracles, host identity/fallbacks, native-control events,
@@ -121,8 +121,9 @@ hosted Actions, credentials and form previews were unverified at that review.
 Subsequent publication and configuration checks are recorded in
 [RELEASE.md](RELEASE.md#current-status). The maintainer's
 final keyboard/accessibility confirmation has no recorded bundle hash and must not
-be attached to the local rebuild as a new native pass. The maintainer confirms latest-build
-screenshots, without a capture hash or theme name. Linux/macOS and other current-build
+be attached to the local rebuild as a new native pass. On 2026-10-12, the maintainer
+confirmed that the screenshots represent that day's build and that it works normally;
+no capture hash or theme name was supplied. Linux/macOS and other current-build
 themes remain untested; mobile and automated E2E are deferred.
 
 An earlier review observed two closed documents surviving controlled collection.
@@ -157,7 +158,12 @@ captures were removed, and the original focused element was restored.
 The maintainer subsequently confirmed on 2026-10-12 that keyboard navigation and
 screen-reader operation continue working after the review fixes. This is a
 maintainer retest; the screen-reader version, individual announcement details and
-manual-test artifact hash were not separately recorded. Hosted artifact
-attestations and a fresh Obsidian review remain **awaiting-manual**. The
-folder-only API still enumerates folder metadata when searching; no claim is made
-that a future review will remove every enumeration recommendation.
+manual-test artifact hash were not separately recorded.
+
+The plugin is now published in the
+[community directory](https://community.obsidian.md/plugins/colors-for-folders-files-and-tabs)
+with **Review: Passed**. The `0.1.1` hosted release passed its build, attestation,
+publication and label-update steps; see [release status](RELEASE.md#current-status).
+Independent verification of downloaded assets remains **awaiting-manual**.
+These results do not extend the native-test scope recorded above. The folder
+chooser still enumerates folder metadata when searching.

@@ -26,7 +26,4 @@ Windows verification is scoped to the recorded workflows. Linux/macOS and other
 current-build themes remain untested; mobile and automated E2E are deferred.
 See [accessibility](docs/ACCESSIBILITY.md) and [testing](docs/TESTING.md) for limits.
 
-Subsequent release PRs use Release Please with Conventional Commits. Merging a
-release PR triggers automatic tagging and publication after checks pass. The initial
-release needs a separately authorized version-tag push; see
-[release preparation](docs/RELEASE.md).
+For the release process, see [automatic releases](docs/RELEASE.md#automatic-releases).

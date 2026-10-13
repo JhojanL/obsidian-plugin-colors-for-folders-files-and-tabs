@@ -1,9 +1,11 @@
 # Presentation images
 
 These six maintainer-supplied screenshots show synthetic **ColorsTest** content
-in desktop Obsidian **1.14.4**, with dark appearance. The maintainer confirms they
-use the latest build. The theme name, exact capture date and artifact hash were
-not supplied; that confirmation is not independent host verification.
+in desktop Obsidian **1.14.4**, with dark appearance. On **2026-10-12**, the
+maintainer confirmed they represent that day's build and that it works normally.
+The theme name, exact capture time and artifact hash were not supplied. This is
+maintainer confirmation, separate from the recorded checks in
+[TESTING.md](../../docs/TESTING.md#recorded-evidence-and-limitations).
 
 | Image                    | Use                                                                   |
 | ------------------------ | --------------------------------------------------------------------- |
