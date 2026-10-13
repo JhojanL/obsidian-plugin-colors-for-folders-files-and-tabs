@@ -21,7 +21,7 @@ jobs:
       github.event_name == 'push' ||
       (github.event.pull_request.merged == true &&
        github.event.pull_request.head.repo.full_name == github.repository &&
-       github.event.pull_request.head.ref == 'release-please--branches--main' &&
+       github.event.pull_request.head.ref == 'release-please--branches--main--components--colors-for-folders-files-and-tabs' &&
        contains(github.event.pull_request.labels.*.name, 'autorelease: pending'))
     runs-on: ubuntu-latest
     permissions:
@@ -105,7 +105,7 @@ jobs:
           commit=$(git rev-parse HEAD)
           gh api --paginate --slurp "repos/$GH_REPO/commits/$commit/pulls?per_page=100" > "$RUNNER_TEMP/release-prs.json"
           prs=$(jq -r --arg commit "$commit" --arg repo "$GH_REPO" \
-            '.[][] | select(.merged_at != null and .merge_commit_sha == $commit and .base.ref == "main" and .head.ref == "release-please--branches--main" and .head.repo.full_name == $repo) | select(any(.labels[]; .name == "autorelease: pending" or .name == "autorelease: tagged")) | .number' \
+            '.[][] | select(.merged_at != null and .merge_commit_sha == $commit and .base.ref == "main" and .head.ref == "release-please--branches--main--components--colors-for-folders-files-and-tabs" and .head.repo.full_name == $repo) | select(any(.labels[]; .name == "autorelease: pending" or .name == "autorelease: tagged")) | .number' \
             "$RUNNER_TEMP/release-prs.json")
           if [ -n "$RELEASE_PR" ] && [ "$prs" != "$RELEASE_PR" ]; then
             echo 'The merged release PR was not found for the published commit; rerun to retry.' >&2

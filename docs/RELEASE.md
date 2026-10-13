@@ -15,10 +15,14 @@ The initial [0.1.0 release](https://github.com/JhojanL/obsidian-plugin-colors-fo
 is published with `main.js`, `manifest.json` and `styles.css`. Its tag points to
 commit `9d23704ad0e53b5ea4997ffa5d86d3b42c2d758b`.
 
-The bootstrap configuration is prepared for that commit. Merge it into `main`
-before enabling release PRs. The variable's current value, token permissions and
-expiry, form previews and notification delivery have not been independently
-verified. Initial publication does not verify the separate Release Please token.
+The bootstrap configuration was merged in PR #2. The first enabled preparation
+run created [release PR #4 for 0.1.1](https://github.com/JhojanL/obsidian-plugin-colors-for-folders-files-and-tabs/pull/4),
+and its push/PR CI runs started, confirming token-driven PR creation and CI
+triggering. That run skipped metadata synchronization because the workflow
+searched for a shorter branch name than Release Please generated; the recovery
+is described below. Token expiry, form previews and notification delivery remain
+unverified. Hosted attestation and first generated-release publication remain
+pending.
 Community-directory submission and approval remain separate steps.
 
 ## GitHub configuration
@@ -115,7 +119,11 @@ No old repository SHA, tag or release is needed. See the official
 ## Automatic releases
 
 1. Merge ordinary PRs into `main` using Conventional Commit titles. Release Please
-   collects releasable changes into a PR on `release-please--branches--main`.
+   collects releasable changes into a PR on
+   `release-please--branches--main--components--colors-for-folders-files-and-tabs`.
+   The component suffix comes from the Node package name; disabling components
+   in version tags does not remove it from the PR branch. Preparation discovery,
+   publication eligibility and label recovery must all match this branch.
 2. Review the proposed version, changelog, dates and minimum-app mapping. The
    preparation workflow synchronizes and formats version files. It also finds an
    existing open release PR on unchanged reruns, so interrupted synchronization
@@ -159,6 +167,21 @@ to the checked commit; do not move published tags to bypass a mismatch. An exist
 draft resumes its uploads. An already published release is checked without
 replacing its assets, then PR label updates are retried. API failures stop the job
 rather than being treated as an absent release.
+
+For PR #4, the branch mismatch left `CHANGELOG.md` unformatted and omitted the
+`0.1.1` entry from `versions.json`. The repair updates all three branch filters,
+formats the changelog and synchronizes the existing release version. Push these
+repairs to the existing release PR and wait for **build** on its final commit.
+Merging that repaired release PR installs the corrected workflows on `main` and
+authorizes publication. Rerunning the original failed CI without those changes
+does not repair the generated files.
+
+Local verification of this repair passed the full gate (282 plugin tests and
+both release-tooling test files), Actionlint 1.7.12 on all workflows, and eight
+simulated publication/recovery scenarios. The three new branch regression checks
+failed against the original filters and passed after correction. Hosted **build**
+on the repaired PR and subsequent attestation/publication remain pending until
+the changes are pushed and the release PR is merged.
 
 The first release verified the publication workflow. The first generated release
 PR must separately verify the dedicated token and CI on its final commit. Do not
