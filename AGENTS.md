@@ -47,7 +47,8 @@ use esbuild; host/build tooling stays outside
 `mise exec -- pnpm run lint` for a focused lint check.
 
 Pre-commit formats/lints matching staged files sequentially and restages fixes;
-inspect the index when partially staging. Pre-push and push/PR CI run the full gate.
+inspect the index when partially staging. Pre-push runs the full gate. CI runs it
+on pushes to `main` and pull requests targeting `main`.
 Do not bypass hooks, weaken assertions or suppress findings to manufacture a pass.
 Run focused tests while editing and the full gate once the change is ready.
 Documentation-only changes need formatting and link checks, not new runtime tests.
@@ -101,7 +102,7 @@ available checks directly. Use **ColorsTest only**, never the user's other vault
 - Preserve the manifest's ID, name, author, description, version, minimum app version and desktop-only declaration. Check the official manifest reference when changing metadata or adopting newer APIs.
 - A release synchronizes package/manifest and Release Please versions plus `versions.json`, uses the exact `x.y.z` manifest version as its tag without a `v` prefix, and attaches `main.js`, `manifest.json` and `styles.css` individually.
 - Release Please prepares version and `CHANGELOG.md` updates in release PRs using Conventional Commits; merging the PR updates the changelog on `main` before publication. Preserve the dedicated token so generated PR updates receive CI. Discovery, publication and label recovery must match the generated component-suffixed branch documented in [RELEASE](docs/RELEASE.md); tag naming does not control PR branch naming. Discover existing open release PRs on reruns even when Release Please returns no changes.
-- Push/PR CI validates builds. Merging a release PR automatically runs full checks on the merged commit, attests all three release assets with the pinned `actions/attest` action, tags it, uploads assets, publishes and updates PR labels. Keep ID-token and attestation write permissions scoped to the release job. Version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Normal maintenance releases do not repeat the initial community-directory submission.
+- CI validates pushes to `main` and pull requests targeting `main`. Merging a release PR automatically runs full checks on the merged commit, attests all three release assets with the pinned `actions/attest` action, tags it, uploads assets, publishes and updates PR labels. Keep ID-token and attestation write permissions scoped to the release job. Version-tag pushes also trigger publication. Preserve retry recovery and tag/commit agreement; never overwrite published assets on reruns. Normal maintenance releases do not repeat the initial community-directory submission.
 
 ## Resources
 
